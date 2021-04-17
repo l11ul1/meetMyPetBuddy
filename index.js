@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const appointments = require('./routes/appointements');
-const reviews = require('./routes/reviews')
+const reviews = require('./routes/review')
 
 
 const app = express();
@@ -19,4 +19,4 @@ app.listen(HTTP_PORT, onHttpStart);
 
 
 app.use("/appointments", appointments);
-app.use("/reviews", reviews);
+app.use("/review", reviews);
