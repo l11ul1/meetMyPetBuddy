@@ -111,7 +111,7 @@ router.delete("/:id", (req, res)=> {
 });
 
 
-app.put("/reschedule/:id", (req, res)=> {
+router.put("/reschedule/:id", (req, res)=> {
     const id = req.params.id;
     console.log(id);
 
