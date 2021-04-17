@@ -111,11 +111,19 @@ router.delete("/:id", (req, res)=> {
 });
 
 
-router.put("/reschedule/:id", (req, res)=> {
+router.patch("/reschedule/:id/:date", (req, res)=> {
     const id = req.params.id;
+    const date = req.params.date;
     console.log(id);
-
-    res.status(501).send("sorry this feature is not implemented yet :C")
+    Appointment.updateOne({_id: id}, {$set: {date: date}}).then(
+        () => {
+            res.status(204).send("update was successful! :)")
+            console.log("update was successful")
+        }).catch(
+            (err) => {
+                console.log(`error: ${err}`);
+            }
+        )
 });
 
 module.exports = router;
