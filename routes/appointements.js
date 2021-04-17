@@ -29,6 +29,7 @@ const ItemScheema = new Schema({
 
 const Appointment = mongoose.model("appointments", ItemScheema);
 
+// List all appointments
 router.get("/", (req,res)=> {
     Appointment.find({}).exec().then(
         (msg) => {
@@ -41,6 +42,7 @@ router.get("/", (req,res)=> {
     );
 });
 
+// Find all appointment records associated with the specific owner
 router.get("/:owner_name", (req, res)=> {
     const owner_name = req.params.owner_name;
     console.log(owner_name);
@@ -60,6 +62,27 @@ router.get("/:owner_name", (req, res)=> {
     )
 });
 
+// Find all appointments associated for a specific clinic
+router.get("/clinics/:clinic_name", (req, res)=> {
+    const clinic_name = req.params.clinic_name;
+    console.log(clinic_name);
+
+    Appointment.find({clinic_name: clinic_name}).then(
+        (result) => {
+            if(result.length === 0){
+                res.status(404).send("Sorry appointments for this clinic were not found :(")
+            }else{
+                res.send(result);
+            }
+        }
+    ).catch(
+        (err) => {
+            console.log(err);
+        }
+    )
+});
+
+// Add new appointment mapping
 router.post("/", (req, res)=> 
 {
     if(req.body.owner_name === "" || 
@@ -91,6 +114,7 @@ router.post("/", (req, res)=>
     }
 });
 
+// Delete Mapping
 router.delete("/:id", (req, res)=> {
     const appointment_id = req.params.id;
     console.log(appointment_id);
@@ -110,7 +134,13 @@ router.delete("/:id", (req, res)=> {
     )
 });
 
-
+/*
+ * This mapping is used to update an element inside the document on mongo db 
+ * To use from app use the url provided for the mapping and then pass two parameter 
+ * ID of the Appointment and New Date
+ * DON'T FORGET TO USE PATCH METHOD 
+ * PATCH METHOD RETURN 204 ON SUCCESS
+ */
 router.patch("/reschedule/:id/:date", (req, res)=> {
     const id = req.params.id;
     const date = req.params.date;
