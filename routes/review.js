@@ -89,7 +89,7 @@ router.get("/api/reviews/clinic/:clinic_name", (req, res) => {
     )
 })
 
-review.post("/api/reviews", (req, res) => {
+router.post("/api/reviews", (req, res) => {
     let ReviewToInsert = req.body
     console.log(`Would like to insert a new review data : ${ReviewToInsert}`)
     var now = (new Date()).toJSON();
