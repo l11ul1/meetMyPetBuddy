@@ -30,9 +30,13 @@ const ReviewSchema = new Schema({
 
 const Review = mongoose.model("reviews_table", ReviewSchema)
 
+// sample data
+
 // const review1 = new Review({"written_by": "John Smith", "review_description": "This clinic was possibly the best clinic I could have ever went", "clinic_name": "Clinic of Oakville", "doctor_name": "Dr. Hofsterror"})
 // const review2 = new Review({"written_by": "Carina Barosa", "review_description" : "100% do not recommend", "clinic_name": "Animal Hospital of Mississauga", "doctor_name": "Dr. Cream" })
 // const review3 = new Review({"written_by": "Hector Vintelli", "review_description" : "Please say no", "clinic_name": "Animal Hospital of Oakville", "doctor_name": "Dr. Stoich"})
+
+// insert sample data
 
 // review1.save()
 // review2.save()
@@ -89,7 +93,7 @@ router.get("/api/reviews/clinic/:clinic_name", (req, res) => {
     )
 })
 
-review.post("/api/reviews", (req, res) => {
+router.post("/api/reviews", (req, res) => {
     let ReviewToInsert = req.body
     console.log(`Would like to insert a new review data : ${ReviewToInsert}`)
     var now = (new Date()).toJSON();
