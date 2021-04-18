@@ -1,11 +1,11 @@
-//import all necessary variable for database connection
+// Import all necessary variable for database connection
 const mongoose = require("mongoose");
 const express = require("express"); 
 const url = "mongodb+srv://vm1702:3989302As@cluster0.ljnio.mongodb.net/meet_my_pet_buddy-db?retryWrites=true&w=majority";
 const connectionOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 const router = express.Router();
 
-//establish connection and return success or failure using promise 
+// Establish connection and return success or failure using promise 
 mongoose.connect(url, connectionOptions).then(
     () => {
         console.log("Mongoose connected successfully");
@@ -16,7 +16,7 @@ mongoose.connect(url, connectionOptions).then(
     }
 )
 
-//establish scheema
+// Establish scheema
 const Schema = mongoose.Schema
 const ItemScheema = new Schema({
     owner_name: String, 
