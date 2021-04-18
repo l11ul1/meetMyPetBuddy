@@ -30,5 +30,23 @@ const petScheema = new Schema({
     clinic_name: Number,
 })
 
-const Appointment = mongoose.model("pets", petScheema);
+const pet = mongoose.model("pets", petScheema);
 
+const pet1 = new pet(
+    {
+        pet_name: "Murzik", 
+        pet_age: 2, 
+        pet_type: "Cat", 
+        pet_breed: "Siamese",
+        assigned_vet: "Dr. Lera", 
+        clinic_name: "Lera's Hospitality"
+    })
+
+
+pet1.save().then(
+    () => {
+        console.log("pet added");
+    }
+);
+
+module.exports = router;
