@@ -87,12 +87,13 @@ router.post("/", (req, res)=>
 {
     if(req.body.owner_name === "" || 
     req.body.pet_type === "" ||
-    req.body.doctor_name=== "" || 
+    req.body.doctor_name === "" || 
     req.body.clinic_name === "" ||
     req.body.clinic_address === "" || 
     !req.body.date){
         res.status(400).send("please check if all fields are filled up >:|")
     }else{
+        console.log(req.body.date);
         const appointment = Appointment(
             {
                 owner_name: req.body.owner_name, 
