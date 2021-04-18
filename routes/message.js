@@ -29,11 +29,11 @@ const Msg = mongoose.model("messages_table", MessageSchema)
 
 // sample data
 
-const msg1 = new Msg({"pet": "Ahri", "note": "Dog is healthy", "date": "2021-03-02"})
-const msg2 = new Msg({"pet": "Bhan", "note" : "Cat needs some medication", "date": "2021-04-02"})
+// const msg1 = new Msg({"pet": "Ahri", "note": "Dog is healthy", "date": "2021-03-02"})
+// const msg2 = new Msg({"pet": "Bhan", "note" : "Cat needs some medication", "date": "2021-04-02"})
 
-msg1.save()
-msg2.save()
+// msg1.save()
+// msg2.save()
 
 router.get("/api/msg", (req, res) => {
  Msg.find().exec().then(
