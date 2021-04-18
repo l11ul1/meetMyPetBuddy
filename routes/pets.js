@@ -16,12 +16,12 @@ mongoose.connect(url, connectionOptions).then(
     }
 )
 
-
 const Schema = mongoose.Schema
 
 const petScheema = new Schema({
     pet_name: String,
     pet_age: Number,
+    pet_gender: String,
     pet_type: String,
     pet_breed: String,
     assigned_vet: String,
@@ -58,6 +58,7 @@ router.post("/", (req, res)=>
 {
     if(req.body.pet_name === "" || 
     !req.body.pet_age ||
+    req.body.pet_gender === "" || 
     req.body.pet_type === "" || 
     req.body.pet_breed === "" ||
     req.body.assigned_vet === "" || 
@@ -66,12 +67,13 @@ router.post("/", (req, res)=>
     }else{
         const pet = Pet(
             {
-                owner_name: req.body.pet_name, 
-                pet_type: req.body.pet_age, 
-                doctor_name: req.body.pet_type, 
-                clinic_name: req.body.pet_breed,
-                clinic_address: req.body.assigned_vet, 
-                date: req.body.clinic_name
+                pet_name: req.body.pet_name, 
+                pet_age: req.body.pet_age, 
+                pet_gender: req.body.pet_gender,
+                pet_type: req.body.pet_type, 
+                pet_breed: req.body.pet_breed,
+                assigned_vet: req.body.assigned_vet, 
+                clinic_name: req.body.clinic_name
             })
 
         pet.save().then(
@@ -84,9 +86,5 @@ router.post("/", (req, res)=>
                 })
     }
 });
-
-
-
-
 
 module.exports = router;
