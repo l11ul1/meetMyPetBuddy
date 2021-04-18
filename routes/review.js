@@ -23,7 +23,7 @@ const ReviewSchema = new Schema({
     review_description: String,
     clinic_name: String,
     doctor_name: String,
-    date: Date,
+    date: String,
     rating: Number,
     feedback_given: String
 })
@@ -101,10 +101,11 @@ router.post("/api/reviews", (req, res) => {
     if("written_by" in req.body && "review_description" in req.body && "rating" in req.body && ("clinic_name" in req.body || "doctor_name" in req.body)) {
         ReviewToInsert = new Review({"written_by": req.body.written_by,
         "review_description": req.body.review_description,
-        "clinic_name": req.body.clnic_name,
+        "clinic_name": req.body.clinic_name,
         "doctor_name" : req.body.doctor_name,
-        "date": now,
-        "rating": req.body.rating})
+        "date": req.body.date,
+        "rating": req.body.rating,
+        "feedback_given": req.body.feedback_given})
         ReviewToInsert.save()
         res.status(201).send({"msg" : "Review was successfully inserted"})
     }
