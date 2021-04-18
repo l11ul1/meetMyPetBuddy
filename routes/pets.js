@@ -17,8 +17,6 @@ mongoose.connect(url, connectionOptions).then(
 )
 
 
-// (val name:String, val age:Int, val type:String, val breed:String, Vet: String, Clinic: String)
-
 const Schema = mongoose.Schema
 
 const petScheema = new Schema({
@@ -27,26 +25,68 @@ const petScheema = new Schema({
     pet_type: String,
     pet_breed: String,
     assigned_vet: String,
-    clinic_name: Number,
+    clinic_name: String,
 })
 
-const pet = mongoose.model("pets", petScheema);
+const Pet = mongoose.model("pets", petScheema);
 
-const pet1 = new pet(
-    {
-        pet_name: "Murzik", 
-        pet_age: 2, 
-        pet_type: "Cat", 
-        pet_breed: "Siamese",
-        assigned_vet: "Dr. Lera", 
-        clinic_name: "Lera's Hospitality"
-    })
+router.get("/", (req, res) => {
+    Pet.find({}).then(
+        (result) => {
+            res.send(result);
+        }).catch(
+            (err) => {
+                res.send(err);
+            }
+        )
+})
 
+router.get("/:name", (req, res) => {
+    pet_name = req.params.name
+    console.log(pet_name)
+    Pet.find({pet_name: pet_name}).then(
+        (result) => {
+            res.send(result);
+        }).catch(
+            (err) => {
+                res.send(err);
+            }
+        )
+})    
 
-pet1.save().then(
-    () => {
-        console.log("pet added");
+router.post("/", (req, res)=> 
+{
+    if(req.body.pet_name === "" || 
+    !req.body.pet_age ||
+    req.body.pet_type === "" || 
+    req.body.pet_breed === "" ||
+    req.body.assigned_vet === "" || 
+    req.body.clinic_name === ""){
+        res.status(400).send("please check if all fields are filled up >:|")
+    }else{
+        const pet = Pet(
+            {
+                owner_name: req.body.pet_name, 
+                pet_type: req.body.pet_age, 
+                doctor_name: req.body.pet_type, 
+                clinic_name: req.body.pet_breed,
+                clinic_address: req.body.assigned_vet, 
+                date: req.body.clinic_name
+            })
+
+        pet.save().then(
+            () => {
+                console.log("Insert Was Successfull")
+                res.status(200).send("Insert Was Successful")
+            }).catch(
+                (err) => { 
+                    console.log(err)
+                })
     }
-);
+});
+
+
+
+
 
 module.exports = router;
